@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daron O'Brien | Marketing Specialist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #475569 0%, #334155 100%);
+            color: #333;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(148, 163, 184, 0.15);
+            backdrop-filter: blur(10px);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-shape:nth-child(1) { width: 80px; height: 80px; top: 10%; left: 10%; animation-delay: 0s; }
+        .floating-shape:nth-child(2) { width: 120px; height: 120px; top: 20%; right: 10%; animation-delay: 2s; }
+        .floating-shape:nth-child(3) { width: 60px; height: 60px; bottom: 20%; left: 20%; animation-delay: 4s; }
+        .floating-shape:nth-child(4) { width: 100px; height: 100px; bottom: 10%; right: 20%; animation-delay: 1s; }
+        .floating-shape:nth-child(5) { width: 90px; height: 90px; top: 60%; left: 50%; animation-delay: 3s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(248, 250, 252, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(248, 250, 252, 0.98);
+            box-shadow: 0 2px 20px rgba(71, 85, 105, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #475569;
+            text-decoration: none;
+            background: linear-gradient(45deg, #475569, #334155);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #475569, #334155);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #334155;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: slideInFromTop 1s ease-out 0.5s forwards;
+            background: linear-gradient(45deg, #f8fafc, #e2e8f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: slideInFromBottom 1s ease-out 0.7s forwards;
+            color: #cbd5e1;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: rgba(248, 250, 252, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(248, 250, 252, 0.3);
+            opacity: 0;
+            animation: slideInFromBottom 1s ease-out 0.9s forwards;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(248, 250, 252, 0.3);
+            border-color: rgba(248, 250, 252, 0.5);
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #1e293b;
+            position: relative;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #475569, #334155);
+        }
+
+        /* About Section */
+        .about {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 20px 40px rgba(71, 85, 105, 0.1);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.6s ease;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .about.animate {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .profile-image {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #475569, #334155);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: white;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(71, 85, 105, 0.3);
+        }
+
+        .profile-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(248, 250, 252, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .profile-image:hover::before {
+            transform: translateX(100%);
+        }
+
+        .about-content p {
+            color: #475569;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-card {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(71, 85, 105, 0.1);
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+            opacity: 0;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .skill-card.animate {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(71, 85, 105, 0.2);
+        }
+
+        .skill-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #475569, #334155);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: 0 5px 15px rgba(71, 85, 105, 0.2);
+        }
+
+        .skill-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+
+        .skill-card p {
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .skill-progress {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .skill-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #475569, #334155);
+            border-radius: 4px;
+            transition: width 1s ease;
+            width: 0;
+        }
+
+        /* Experience Section */
+        .experience-timeline {
+            position: relative;
+            margin-top: 2rem;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, #475569, #334155);
+        }
+
+        .experience-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.6s ease;
+        }
+
+        .experience-item.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .experience-item:nth-child(even) {
+            flex-direction: row-reverse;
+            transform: translateX(50px);
+        }
+
+        .experience-item:nth-child(even).animate {
+            transform: translateX(0);
+        }
+
+        .experience-content {
+            flex: 1;
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(71, 85, 105, 0.1);
+            margin: 0 2rem;
+            position: relative;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .experience-content h3 {
+            color: #1e293b;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-content h4 {
+            color: #475569;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .experience-content p {
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .experience-date {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #475569, #334155);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            box-shadow: 0 5px 15px rgba(71, 85, 105, 0.2);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #475569 0%, #334155 100%);
+            color: white;
+            text-align: center;
+            padding: 5rem 2rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            box-shadow: 0 20px 40px rgba(71, 85, 105, 0.2);
+        }
+
+        .contact .section-title {
+            color: white;
+        }
+
+        .contact .section-title::after {
+            background: linear-gradient(90deg, #94a3b8, #cbd5e1);
+        }
+
+        .contact p {
+            color: #cbd5e1;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            background: rgba(248, 250, 252, 0.1);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(248, 250, 252, 0.2);
+        }
+
+        .contact-link:hover {
+            background: rgba(248, 250, 252, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInFromTop {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInFromBottom {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .experience-timeline::before {
+                left: 30px;
+            }
+            
+            .experience-item {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-left: 60px;
+            }
+            
+            .experience-item:nth-child(even) {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .experience-date {
+                left: 30px;
+                transform: translateX(-50%);
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">AM</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Alex Morgan</h1>
+            <p>Creative Marketing Specialist & Digital Strategist</p>
+            <a href="#about" class="cta-button">Discover My Story</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="about">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="profile-image">AM</div>
+                <div>
+                    <p>
+                        Dynamic Marketing Consultant with over 7 years experience drivinh business growth and enhancing marketing strategies across multiple sectors. Expertise in business development, campaign management, and fostering stron relationships with partners and clients. Proven ability ti elevate brand visibility and optimise marketing efforts through innovative digital strategies and targeted outreach. Committed to delivering exceptional results by leveraging analytical skills and strategic thinking to meet and exceed revenue goals. Passionate about creating impactful marketing solutions that resonate with diverse audiences.
+                    </p>
+                    <p>
+                        I thrive on transforming complex marketing challenges into innovative solutions that resonate with target audiences. My approach combines data-driven insights with creative storytelling to build memorable brand experiences.
+                    </p>
+                    <p>
+                        When I'm not crafting marketing strategies, you'll find me exploring emerging digital trends, analyzing consumer behavior, or mentoring young professionals in the marketing field.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section" id="skills">
+        <h2 class="section-title">Core Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-icon">📊</div>
+                <div class="skill-name">Digital Analytics</div>
+                <p>Expert in Google Analytics, Adobe Analytics, and data visualization tools to drive strategic decisions.</p>
+                <div class="skill-progress">
+                    <div class="skill-fill" data-width="95"></div>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🎯</div>
+                <div class="skill-name">Campaign Management</div>
+                <p>Specialized in multi-channel campaign development, optimization, and performance tracking.</p>
+                <div class="skill-progress">
+                    <div class="skill-fill" data-width="90"></div>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🚀</div>
+                <div class="skill-name">Brand Strategy</div>
+                <p>Developing comprehensive brand positioning and messaging strategies that resonate with audiences.</p>
+                <div class="skill-progress">
+                    <div class="skill-fill" data-width="88"></div>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">💡</div>
+                <div class="skill-name">Content Marketing</div>
+                <p>Creating engaging content across platforms to build brand awareness and drive conversions.</p>
+                <div class="skill-progress">
+                    <div class="skill-fill" data-width="92"></div>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">📱</div>
+                <div class="skill-name">Social Media</div>
+                <p>Managing social media presence and creating viral campaigns that engage communities.</p>
+                <div class="skill-progress">
+                    <div class="skill-fill" data-width="87"></div>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🔍</div>
+                <div class="skill-name">SEO/SEM</div>
+                <p>Optimizing search visibility and managing paid advertising campaigns for maximum ROI.</p>
+                <div class="skill-progress">
+                    <div class="skill-fill" data-width="85"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="section" id="experience">
+        <h2 class="section-title">Professional Experience</h2>
+        <div class="experience-timeline">
+            <div class="experience-item">
+                <div class="experience-date">2022 - Present</div>
+                <div class="experience-content">
+                    <h3>Marketing Specialist</h3>
+                    <h4>Life & Annuity Masters</h4>
+                    <p>Created marketing campaigns for both the internal agency and external clients, including email and digital campaigns.
+                        Led bakend support on company website re-design which included updating copy, imagery and added SSO for partners to access individualized information.
+                        Assisted
+                    </p>
+                </div>
+            </div>
+            <div class="experience-item">
+                <div class="experience-date">2020 - 2022</div>
+                <div class="experience-content">
+                    <h3>Marketing Coordinator</h3>
+                    <h4>Creative Dynamics Inc.</h4>
+                    <p>Developed and executed integrated marketing campaigns across multiple channels. Collaborated with cross-functional teams to launch 3 successful product lines, generating $2M in first-year revenue.</p>
+                </div>
+            </div>
+            <div class="experience-item">
+                <div class="experience-date">2019 - 2020</div>
+                <div class="experience-content">
+                    <h3>Digital Marketing Assistant</h3>
+                    <h4>StartUp Hub</h4>
+                    <p>Managed social media presence for 15+ clients, created content calendars, and analyzed campaign performance. Increased social media engagement by 200% across all managed accounts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="contact">
+            <h2 class="section-title">Let's Connect</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Ready to collaborate on your next marketing project? I'd love to hear from you!</p>
+            <div class="contact-links">
+                <a href="mailto:alex.morgan@email.com" class="contact-link">
+                    <span>✉️</span>
+                    <span>alex.morgan@email.com</span>
+                </a>
+                <a href="https://linkedin.com/in/alexmorgan" class="contact-link">
+                    <span>💼</span>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="tel:+1234567890" class="contact-link">
+                    <span>📞</span>
+                    <span>+1 (234) 567-890</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    
+                    // Animate skill progress bars
+                    if (entry.target.classList.contains('skill-card')) {
+                        const skillFill = entry.target.querySelector('.skill-fill');
+                        const width = skillFill.getAttribute('data-width');
+                        setTimeout(() => {
+                            skillFill.style.width = width + '%';
+                        }, 200);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.about, .skill-card, .experience-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Parallax effect for floating shapes
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const shapes = document.querySelectorAll('.floating-shape');
+            
+            shapes.forEach((shape, index) => {
+                const speed = 0.5 + (index * 0.1);
+                shape.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Enhanced hover effects
+        document.querySelectorAll('.skill-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add subtle animation to profile image
+        document.querySelector('.profile-image').addEventListener('mouseover', function() {
+            this.style.transform = 'scale(1.05) rotate(5deg)';
+        });
+
+        document.querySelector('.profile-image').addEventListener('mouseout', function() {
+            this.style.transform = 'scale(1) rotate(0deg)';
+        });
+    </script>
+</body>
+</html>
